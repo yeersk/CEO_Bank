@@ -7,3 +7,4 @@ if __name__ == "__main__":
         if hasattr(new_contragent, text):
             func = getattr(new_contragent, text)
             print(func())
+        else: print('function is not find')
