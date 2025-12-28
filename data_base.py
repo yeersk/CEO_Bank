@@ -5,12 +5,11 @@ cursor = db.cursor()
 
 cursor.execute(
     '''
-    CREATE TABLE users(
-                user_id INTEGER NOT NULL PRIMARY KEY,
-                name VARCHAR,
-                surname VARCHAR,
-                login VARCHAR,
-                password VARCHAR
+    CREATE TABLE account(
+    id INTEGER NOT NULL PRIMARY KEY,
+    user INTEGER,
+    name VARCHAR,
+    balance INTEGER
     );
     
     '''

@@ -1,5 +1,5 @@
 import bank_api
-new_contragent = bank_api.account()
+new_contragent = bank_api.contragent()
 
 if __name__ == "__main__":
     while True:
