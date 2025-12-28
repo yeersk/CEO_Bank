@@ -1,4 +1,3 @@
-*.pyc
-.venv
+*.venv
 venv
-__pycache__
+__pycache__\bank_api.cpython-312.pyc
