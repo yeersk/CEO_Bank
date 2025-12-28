@@ -1,7 +1,7 @@
 import time
 import sqlite3
 
-class account:
+class contragent:
     def __init__(self):
         self.__db__ = sqlite3.connect('BANK.db') 
         self.__cursor__ = self.__db__.cursor()
@@ -114,5 +114,52 @@ class account:
         
         else: return 'please, authorise'
     
-    
+    def account_create(self):
+        if self.__user_id is not None:
+            suc = input('Are you shure? y/n ')
+            if suc == 'y':
+                name = input('set name ')
+                self.__cursor__.execute("""INSERT INTO account (user, name, balance) VALUES (?, ?, ?)""", (self.__user_id, name,  0))
+                self.__db__.commit()
+                return 'account is successfully created'
+            else: return 'nu ladno'
+        else: return 'please authorise'
+
+    def account_transfer(self):
+            if self.__user_id is not None:
+                from_account = int(input('set account from '))
+                target = int(input('set target account '))
+                summ = int(input('set sum '))
+                self.__cursor__.execute('SELECT balance FROM account WHERE id = (?)', (from_account, ))
+                balance = int(list(self.__cursor__.fetchone())[0])
+                if balance >= summ:
+                    self.__cursor__.execute('UPDATE account SET balance = (?) WHERE id = (?)', (summ, target))
+                    self.__cursor__.execute('UPDATE account SET balance = (?) WHERE id = (?)', (balance - summ, from_account))
+                    self.__db__.commit()
+                    return 'transfer is successfull'
+                else: return 'not enough funds'
+            else: return 'please authorise'
+
+    def adding_funds(self):
+        if self.__user_id == 1 and self.__name == 'gospod' and self.__surname == 'bog':
+            target = input('for who')
+            summ = int(input('how much'))
+            self.__cursor__.execute('SELECT balance FROM account account WHERE id = (?)', (target,))
+            balance = int(list(self.__cursor__.fetchone())[0])
+            print(f'current balance {balance}')
+            self.__cursor__.execute('UPDATE account SET balance = (?) WHERE id = (?)', (balance + summ, target))
+            self.__db__.commit()
+            return'funds is successfully added'
+        else: return 'Error'
+
+
+
+
+            
+
+
+
+
+
+
     
